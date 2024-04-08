@@ -1,0 +1,677 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Array Quiz</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+  <div id="quiz" class="quiz">
+
+    <div class="coin questionaire" >
+    <img src="https://4515051.fs1.hubspotusercontent-na1.net/hubfs/4515051/2022/05-mayo/Diagnosticador%20de%20Pap%C3%A1s/logo-el-diagnosticador-de-papas-morado.png" alt="Logo de diagnosticador de papás" id="Question-logo">
+    <div class="row questionaire__row" >
+      <div class="col " id="con1" >
+        <div id="index" class="index">
+        </div>
+      </div>
+      <div class="col " id="con2" >
+          <div class="box" id="box" >
+            <h1 id="question"></h1>
+            <div id="choices"></div>
+            <div id="return">
+              <a href="javascript:location.reload()">
+                <img  src="https://4515051.fs1.hubspotusercontent-na1.net/hubfs/4515051/back.svg" alt="back" id="back">
+               </a>
+           </div>
+        </div>
+      </div>
+
+
+  </div>
+</div>  
+</body>
+</html>
+  <style>
+    .questionaire__row{
+      display: flex;
+    }
+  </style>
+<script>
+  class UI {
+      constructor() {}
+    
+      /**
+       *
+       * @param {string} text
+       */
+      showQuestion(text,counter) {
+    
+        if(counter===0){
+           let img = new Image();
+           img.src = 'https://4515051.fs1.hubspotusercontent-na1.net/hubfs/4515051/2022/05-mayo/Diagnosticador%20de%20Pap%C3%A1s/banner-principal-diagnosticador.png';
+           document.getElementById('index').appendChild(img);
+           img.className = "bannerDay";      
+        }else{
+          document.getElementById("quiz").style.backgroundColor = "#ffff";
+          document.getElementById("con2").style.backgroundColor = "#ffff";
+          document.getElementById("box").style.backgroundColor = "#F2F2F2";
+          const questionTitle = document.getElementById("question");
+          questionTitle.innerHTML = text;
+    
+          if(counter===1){
+            let div= document.getElementById("index")
+            div.remove();
+            let element = document.getElementById("con1");
+            element.classList.remove("col");
+          }
+    
+    
+        }
+    
+    
+        
+      }
+    
+      /**
+       *
+       * @param {string[]} choices
+       */
+      showChoices(choices, callback, counter) {
+    
+        const choicesContainer = document.getElementById("choices");
+        choicesContainer.innerHTML = "";
+    
+        for (let i = 0; i < choices.length; i++) {
+          if(counter===0){
+            let con1 = document.getElementById("con1");
+      
+            if( window.innerWidth <= 800){
+              con1.className = "mobile ";
+            }else{
+         
+              con1.className = "col ";
+            }
+            document.getElementById("return").style.display = "none";
+            document.getElementById("Question-logo").style.display = "none";
+            document.getElementById("question").style.display = "none";
+            const text = document.createElement("text");
+            text.className = "title";
+            text.innerText ="Descubre el tipo de papá para encontrar el regalo ideal en el Día del Padre."  
+            let img = new Image();
+            img.src = 'https://4515051.fs1.hubspotusercontent-na1.net/hubfs/4515051/2022/05-mayo/Diagnosticador%20de%20Pap%C3%A1s/logo-el-diagnosticador-de-papas-blanco.png';
+            document.getElementById('choices').appendChild(img); 
+         
+            const button = document.createElement("button");
+         
+            button.addEventListener("click", () => callback(choices[i]));
+      
+            button.className = "button1";
+        
+            button.innerText = choices[i];
+            
+            choicesContainer.append(button);
+            button.insertAdjacentElement("beforebegin",text);
+    
+            
+            
+          }else{
+              if(counter >1){
+  
+                  document.getElementById("return").style.display = "block";
+          
+              
+               
+              }
+              document.getElementById("choices").style.marginTop = "0px";
+            document.getElementById("Question-logo").style.display = "block";
+            document.getElementById("question").style.display = "block";
+            const num = document.createElement("num");
+            num.className = "num";
+            num.innerText = i +1+".";
+              
+          const button = document.createElement("button");
+      
+          button.addEventListener("click", () => callback(choices[i]));
+    
+          button.className = "button";
+      
+          button.innerText = choices[i];
+          button.insertAdjacentElement("afterbegin",num);
+          choicesContainer.append(button);
+    
+          }
+     
+    
+    
+        }
+    
+    
+      }
+      
+    
+      showScores(scoreviajero, scoregourmet,scorefashion, scoresaludable, scoregeek,choices,callback) {
+         let arreglo=[scoreviajero, scoregourmet,scorefashion, scoresaludable, scoregeek];
+         let maximo = 0;
+         let papa=["viajero", "gourmet","fashion", "saludable", "geek"];
+        for(let i=0,len=arreglo .length;i<len;i++){
+          if(maximo < arreglo [i]){
+              maximo = arreglo [i];
+              let pos=i;
+          }
+      }
+      let a= papa[pos];
+      let l,e,url;
+      if( a=="viajero"){
+          l="https://4515051.fs1.hubspotusercontent-na1.net/hubfs/4515051/2022/05-mayo/Diagnosticador%20de%20Pap%C3%A1s/banner%20viajero.png";
+          e="✈️";
+         url="https://landing.puntoscolombia.com/pco/padres-2022/viajero";
+      }
+      else if( a=="geek"){
+        l="https://4515051.fs1.hubspotusercontent-na1.net/hubfs/4515051/2022/05-mayo/Diagnosticador%20de%20Pap%C3%A1s/banner%20geek.png";
+          e="🎮";
+         url="https://landing.puntoscolombia.com/pco/padres-2022/geek";
+      }
+      else if( a=="gourmet"){
+        l="https://4515051.fs1.hubspotusercontent-na1.net/hubfs/4515051/2022/05-mayo/Diagnosticador%20de%20Pap%C3%A1s/banner%20gourmet.png";
+          e="👨‍🍳";
+         url="https://landing.puntoscolombia.com/pco/padres-2022/gourmet";
+      }
+      else if( a=="fashion"){
+        l="https://4515051.fs1.hubspotusercontent-na1.net/hubfs/4515051/2022/05-mayo/Diagnosticador%20de%20Pap%C3%A1s/banner%20fashion.png";
+          e="🕺";
+         url="https://landing.puntoscolombia.com/pco/padres-2022/fashion";
+      }
+      else if( a=="saludable"){
+        l="https://4515051.fs1.hubspotusercontent-na1.net/hubfs/4515051/2022/05-mayo/Diagnosticador%20de%20Pap%C3%A1s/banner%20saludable.png";
+           e="🏃";
+         url="https://landing.puntoscolombia.com/pco/padres-2022/saludable";
+      }
+      let meta = document.createElement('meta');
+    meta.httpEquiv = "og:image";
+    meta.content =l;
+    document.getElementsByTagName('head')[0].appendChild(meta);
+  
+    
+    
+    $('head').append(meta);
+    
+        const gameOverHTML = `
+        <section class="contenedor-dia resultado">
+        <img id=image src="${l}" alt=""  >
+        <div class="compartir-resultado">
+            <h3>¡Gracias por participar!</h3>
+            <p><a target="_self" id=waButton  data-action="share/whatsapp/share">Pedir regalo</a></p>
+            <p><a target="_self" href="${url}">Comienza a explorar</a></p>
+            <p><a href="javascript:location.reload()">Hazlo de nuevo</a></p>
+            <div class="redes-sociales">
+                <a href="https://www.instagram.com/puntoscolombia/?hl=es"><img src="https://4515051.fs1.hubspotusercontent-na1.net/hubfs/4515051/2022/05-mayo/Diagnosticador%20de%20Pap%C3%A1s/logo-instagram.png" alt="Logo de instagram"></a>
+                <a href="https://twitter.com/puntoscolombia?lang=es"><img src="https://4515051.fs1.hubspotusercontent-na1.net/hubfs/4515051/2022/05-mayo/Diagnosticador%20de%20Pap%C3%A1s/logo-twitter.png" alt="Logo de twitter"></a>
+                <a href="https://es-la.facebook.com/PuntosColombia/"><img src="https://4515051.fs1.hubspotusercontent-na1.net/hubfs/4515051/2022/05-mayo/Diagnosticador%20de%20Pap%C3%A1s/logo-facebook.png" alt="Logo de facebook"></a>
+            </div>
+           
+        </div>
+       
+    </section>
+    
+          `;
+     
+        const element = document.getElementById("quiz");
+        element.innerHTML = gameOverHTML;
+        const button = document.getElementById('waButton');
+      
+        let image = document.getElementById('image');
+     
+        let imageURL = image.src;
+  
+        if(screen.width < 520 ){
+          button.setAttribute('href', 'whatsapp://send?text=*El Diagnosticador dice: Papá es '+a+"*"+e+"  %0A✔️ Para darle su regalo ideal, todos tus Puntos Colombia %0A🟣 Conoce más ofertas de nuestros aliados ahora: "+url);
+        }else{
+          button.setAttribute('href', 'https://wa.me/?text=*El Diagnosticador dice: Papá es '+a+"*  %0A  Para darle su regalo ideal, todos tus Puntos Colombia %0A Conoce más ofertas de nuestros aliados ahora:"+url);
+        }
+    
+    
+        
+       
+      }
+    
+    
+    
+    }
+    class Quiz {
+      scoreviajero = 0;
+      scoregourmet = 0;
+      scoregeek = 0;
+      scoresaludable = 0;
+      scorefashion = 0;
+      questionIndex = 0;
+    
+    
+      /**
+       *
+       * @param {Question[]} questions
+       */
+      constructor(questions) {
+    
+        this.questions = questions;
+      }
+    
+      /**
+       *
+       * @returns {Question} the question found
+       */
+      getQuestionIndex() {
+    
+        return this.questions[this.questionIndex];
+      }
+    
+      isEnded(r) {
+        
+       let sum=this.scoregourmet+ this.scoreviajero+this.scorefashion+ this.scoresaludable+ this.scoregeek;
+  
+  
+        if(r===1){
+          return false;
+        }
+        
+      }
+      isEnded() {
+        
+          let sum=this.scoregourmet+ this.scoreviajero+this.scorefashion+ this.scoresaludable+ this.scoregeek;
+     
+           if(sum === 100){
+             return true;
+           }
+           
+         }
+    
+     guess(respuesta) {
+      
+      let val=1;
+     
+      
+     if(counter===2){
+    
+      this.scoreviajero=0;
+    
+     } 
+      
+    if(this.scoregourmet==0 && this.scoreviajero==0 && this.scorefashion==0 &&  this.scoresaludable==0 &&  this.scoregeek==0){
+      val=40;
+    }else{
+        val=30;
+     }
+    
+        if(this.getQuestionIndex().getViaje()=== respuesta){
+            if (this.getQuestionIndex().correctAnswer(respuesta)) {
+              this.scoreviajero= this.scoreviajero+val;
+             
+          
+          
+            }
+        
+          }
+        
+          if(this.getQuestionIndex().getSaludable()=== respuesta){
+            if (this.getQuestionIndex().correctAnswer(respuesta)) {
+              this.scoresaludable= this.scoresaludable+val;
+          
+            }
+        
+          }
+          if(this.getQuestionIndex().getGeek()=== respuesta){
+            if (this.getQuestionIndex().correctAnswer(respuesta)) {
+              this.scoregeek= this.scoregeek+val;
+    
+     
+           
+            }
+        
+          }
+        if(this.getQuestionIndex().getGourmet()=== respuesta){
+    
+          if (this.getQuestionIndex().correctAnswer(respuesta)) {
+            this.scoregourmet= this.scoregourmet+val;
+        
+          
+            
+          }
+        
+        }
+       
+        if(this.getQuestionIndex().getFashion()=== respuesta){
+         
+          if (this.getQuestionIndex().correctAnswer(respuesta)) {
+            this.scorefashion= this.scorefashion+val;
+          
+            
+          }
+        
+        }
+        if(this.getQuestionIndex().getVia()=== respuesta){
+          if (this.getQuestionIndex().correctAnswer(respuesta)) {
+            this.scoreviajero= this.scoreviajero+val;
+         
+          }
+      
+        }
+      
+        if(this.getQuestionIndex().getSal()=== respuesta){
+          if (this.getQuestionIndex().correctAnswer(respuesta)) {
+            this.scoresaludable= this.scoresaludable+val;
+          
+          }
+      
+        }
+        if(this.getQuestionIndex().getGe()=== respuesta){
+          if (this.getQuestionIndex().correctAnswer(respuesta)) {
+            this.scoregeek= this.scoregeek+val;
+        
+     
+          }
+      
+        }
+      if(this.getQuestionIndex().getGou()=== respuesta){
+    
+        if (this.getQuestionIndex().correctAnswer(respuesta)) {
+          this.scoregourmet= this.scoregourmet+val;
+    
+          
+          
+        }
+      
+      }
+     
+      if(this.getQuestionIndex().getFas()=== respuesta){
+    
+        if (this.getQuestionIndex().correctAnswer(respuesta)) {
+          this.scorefashion= this.scorefashion+val;
+    
+          
+        }
+      
+      }
+    
+    
+        if(this.scoreviajero+ this.scoregourmet==40){
+         
+          this.questionIndex++;
+      
+        }else if (this.scoreviajero+ this.scoregourmet==70){
+     
+          this.questionIndex=this.questionIndex+4;
+    
+        }
+      
+    
+        if((this.scorefashion+this.scoresaludable)>=40){
+     
+    
+          this.questionIndex=this.questionIndex+2;
+    
+        }
+    
+        
+        if( this.scoregeek>=40 ||(this.scoreviajero==30 && this.scoregourmet==0)){
+  
+          this.questionIndex=this.questionIndex+3;
+       
+        }
+          
+         
+     
+    
+    }
+    
+     
+    
+    }
+    
+    
+    class Question {
+      /**
+       *
+       * @param {string} text 
+       * @param {string[]} choices 
+       *  @param {string} gourmet  
+       * @param {string} fashion  
+       *  * @param {string} saludable  
+       *  * @param {string} geek  
+       *    *  @param {string} via  
+       *  @param {string} gou  
+       * @param {string} fas  
+       *  * @param {string} sal  
+       *  * @param {string} ge  
+       */
+      
+      constructor(text, choices,viajero,gourmet,fashion,saludable,geek,via,gou,fas,sal,ge) {
+        this.text = text;
+        this.choices = choices;
+        this.viajero = viajero;
+        this.gourmet = gourmet;
+        this.fashion = fashion;
+        this.saludable = saludable;
+        this.geek = geek;
+        this.via = via;
+        this.gou = gou;
+        this.fas = fas;
+        this.sal = sal;
+        this.ge = ge;
+      }
+    
+      /**
+       *
+       * @param {string} choice the choice selected
+       * @returns {boolean} returns if the choice is correct
+       */
+      // se relacion choice con answer
+        getViaje() {
+        
+          return this.viajero;
+      
+        }
+        getGourmet() {
+     
+          return this.gourmet;
+      
+        }
+        getFashion() {
+          
+          return this.fashion;
+      
+        }
+        getSaludable() {
+          
+          return this.saludable;
+      
+        }
+        getGeek() {
+          
+          return this.geek;
+      
+        }
+        getVia() {
+        
+          return this.via;
+      
+        }
+        getGou() {
+         
+          return this.gou;
+      
+        }
+        getFas() {
+          
+          return this.fas;
+      
+        }
+        getSal() {
+          
+          return this.sal;
+      
+        }
+        getGe() {
+          
+          return this.ge;
+      
+        }
+      correctAnswer(choice) {
+       
+          if(choice === this.viajero){
+            
+            return choice === this.viajero;
+          }else if (choice === this.gourmet){
+        
+            return choice === this.gourmet;
+          }else if (choice === this.fashion){
+           
+            return choice === this.fashion;
+          }else if (choice === this.saludable){
+          
+            return choice === this.saludable;
+          }else if (choice === this.geek){
+           
+            return choice === this.geek;
+          }else if (choice === this.via){
+            
+            return choice === this.via;
+        }else if (choice === this.gou){
+         
+          return choice === this.gou;
+        }else if (choice === this.fas){
+         
+          return choice === this.fas;
+        }else if (choice === this.sal){
+       
+          return choice === this.sal;
+        }else if (choice === this.ge){
+          
+          return choice === this.ge;
+        }
+        }
+     
+      
+      
+    
+    
+    }
+    const data = [
+      {
+        question: "Descubre qué tipo de papá eres y recibe el regalo que te gusta en el día del padre.",
+        choices: ["Iniciar test"],
+        viajero: "Iniciar test",
+    
+        
+      },
+    
+      {
+        question: "Si un genio aparece para cumplirte un deseo, ¿cuál elegirías?",
+        choices: [" Conocer nuevos países"," Tener un armario con prendas infinitas"," Entrar siempre gratis a los restaurantes"," Vivir por más años"," Siempre tener el smartphone de última generación"],
+        viajero: " Conocer nuevos países",
+        fashion: " Tener un armario con prendas infinitas",
+        gourmet: " Entrar siempre gratis a los restaurantes",
+        saludable: " Vivir por más años",
+        geek: " Siempre tener el smartphone de última generación",
+        
+      },
+      {
+        question: "Entras a una tienda y te dicen que tienes un producto gratis, ¿qué eliges?",
+        choices: [" Gafas de sol", " Traje de baño", " Botella de vino", " Queso añejado"],
+        viajero: " Gafas de sol",
+        via: " Traje de baño",
+        gou: " Botella de vino",
+        gourmet: " Queso añejado",
+      },
+      {
+        question: "Si pudieras ser un personaje famoso, ¿cuál serías?",
+        choices: [" Brad Pitt", " La Rocka", " Agente 007", " Cristiano Ronaldo"],
+        fashion: " Brad Pitt",
+        saludable: " La Rocka",
+        fas: " Agente 007",
+        sal: " Cristiano Ronaldo",
+       
+      },
+    
+    
+      {
+        question: "Vas a viajar a la luna y solo puedes llelet una de tus pertenencias, ¿qué llevarías?",
+        choices: [" Tu consola de videojuegos portátil", " Tu Smart TV con señal interplanetaria", " Tu carpa de camping con sleeping", " Una maleta llena de recuerdos" ],
+        geek: " Tu consola de videojuegos portátil",
+        ge: " Tu Smart TV con señal interplanetaria",
+        via: " Tu carpa de camping con sleeping",
+        viajero: " Una maleta llena de recuerdos" ,
+       
+      },
+      {
+        question: "Eres un científico y vas a crear un nuevo producto, ¿qué harías?",
+        choices: [" Un traje que cambia de color", " Zapatos que varían según el terreno", " Crema rejuvenecedora instantánea", " Agua adelgazante" ],
+        fashion: " Un traje que cambia de color",
+        fas: " Zapatos que varían según el terreno",
+        sal: " Crema rejuvenecedora instantánea",
+        saludable: " Agua adelgazante" ,
+       
+      },
+      {
+        question: "Si pudieras elegir una profesión diferente, ¿qué prefieres?",
+        choices: [" Piloto comercial", " Diplomático", " Chef de crucero", " Catador de vinos" ],
+        viajero: " Piloto comercial",
+        via: " Diplomático",
+        gou: " Chef de crucero",
+        gourmet: " Catador de vinos" ,
+       
+      },
+    
+      {
+        question: "Si tuvieras que llelet un poco de la civilización moderna a una tribu apartada, ¿qué sería?",
+        choices: [" Audífonos bluetooth para escuchar los últimos éxitos", " Un computador para que hagan amigos en Facebook", " Gafas oscuras con filtro UV", " Maleta de rodachines con cargador solar" ],
+        geek: " Audífonos bluetooth para escuchar los últimos éxitos",
+        ge: " Un computador para que hagan amigos en Facebook",
+        via: " Gafas oscuras con filtro UV",
+        viajero: " Maleta de rodachines con cargador solar" ,
+       
+      },
+    
+    
+    ];
+    
+    const questions = data.map(
+      (question) =>
+        new Question(question.question, question.choices, question.viajero, question.gourmet, question.fashion, question.saludable, question.geek,question.via, question.gou, question.fas, question.sal, question.ge)
+    );
+    
+    let counter=0;
+    const renderPage = (quiz, ui) => {
+    
+      if (quiz.isEnded()) {
+  
+     ui.showScores( quiz.scoreviajero, quiz.scoregourmet, quiz.scorefashion, quiz.scoresaludable, quiz.scoregeek);
+      } else {
+        
+  
+        ui.showQuestion(quiz.getQuestionIndex().text,counter);
+      
+        ui.showChoices(quiz.getQuestionIndex().choices, (currenChoice) => {
+          quiz.guess(currenChoice,counter);
+          renderPage(quiz, ui);
+        },counter);
+        counter++;
+      }
+    };
+    
+    function main() {
+      const quiz = new Quiz(questions);
+      const ui = new UI();
+    
+    
+      renderPage(quiz, ui);
+    }
+    
+    main();
+    
+  </script>
+ 
+
+
